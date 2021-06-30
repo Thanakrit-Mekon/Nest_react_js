@@ -8,3 +8,4 @@ export class Examplecontroller {
     return {message: "Scheiße!"};
   }
 }
+
