@@ -17,6 +17,16 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     const incCounter = () => {
       this.setState({counter: this.state.counter+1});
+    };
+    const Fetchmessage = () => {
+      const [course, setCourse] = useState("test");
+      useEffect(() => {
+        fetch("http://localhost:3000/example")
+          .then(res => res.json())
+          .then(obj => {
+            setCourse(obj.course);
+          });
+      }, []);
     }
     return (
       <div>

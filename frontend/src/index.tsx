@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import App2 from './app2';
+
+import App from './Course'
 
 
 import reportWebVitals from './reportWebVitals';
 // Pass "MESSAGE to App.tsx"
 ReactDOM.render(
   <React.StrictMode>
-    <App2 message="MESSAGE"/> 
+    <App /> 
   </React.StrictMode>,
   document.getElementById('root')
 );
