@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Course } from "./interface";
+import CourseItem from "./CourseItem";
 import './App.css'
 
 const App = () => {
-    const [courses, setCourses] = useState<any[]>(["Default"]);
+    const [courses, setCourses] = useState<Course[]>([]);
 
     useEffect(() => {
         fetch("http://localhost:3000/example")
@@ -11,15 +13,15 @@ const App = () => {
                 setCourses(courses);
             });
     }, []);
-    const names = ['Bruce', 'Clark', 'Diana'];
     return (
         
         <div className="App">
             <ul>
-                {courses.map(item => <li>{item["Id"]} - {item["Name"]}</li>)}
+                {courses.map(item => (
+                    <CourseItem key={item.Id} course={item} />
+                ))}
             </ul>
         </div>
     );
 }
-
 export default App
