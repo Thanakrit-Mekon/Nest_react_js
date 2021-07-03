@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { isTemplateExpression } from "typescript";
 import './App.css'
 
 const App = () => {
@@ -9,7 +8,6 @@ const App = () => {
         fetch("http://localhost:3000/example")
             .then(res => res.json())
             .then(courses => {
-                console.log(courses)
                 setCourses(courses);
             });
     }, []);
