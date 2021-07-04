@@ -6,17 +6,17 @@ export class CoursesService {
     async findAll(): Promise<Course[]> { // Database will returned a promise
         return [
             {
-                Id: "100",
+                Id: "1000",
                 Name: "Bung",
                 Status: "Junior"
               },
               {
-                Id: "101",
+                Id: "1001",
                 Name: "Bungbung",
                 Status: "Sophomore"
               },
               {
-                Id: "102",
+                Id: "1002",
                 Name: "Bungbung2",
                 Status: "Senior"
               },
