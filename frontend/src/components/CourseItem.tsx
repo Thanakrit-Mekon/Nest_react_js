@@ -1,5 +1,5 @@
 import React from 'react';
-import { Course } from './interface';
+import { Course } from '../interface';
 
 type CourseItemProps = {
     course: Course
