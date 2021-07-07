@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Course } from "./interface";
 import CourseItem from "./components/CourseItem";
 import NewCourseForm from "./components/newCourseForm";
+import Courses_service from "./services/CoursesService";
 import './App.css'
 
 const App = () => {
@@ -13,12 +14,11 @@ const App = () => {
     );
     
     const fetchCourses = () => {
-        fetch("http://localhost:3000/example")
-            .then(res => res.json())
+        Courses_service.fetchCourses()
             .then(courses => {
                 setCourses(courses);
             });
-    }
+    };
 
     const handleNewCourseCreated = (course: Course) => {
         fetchCourses();
@@ -44,6 +44,12 @@ const App = () => {
     );
 }
 export default App
+
+
+
+
+
+
 
 
 

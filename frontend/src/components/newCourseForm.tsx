@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Course } from '../interface';
+import CoursesService from '../services/CoursesService'
 
 type NewCourseFormProps = {
     onNewCourseCreated?: (newCourse: Course) => void,
@@ -22,32 +23,23 @@ const NewCourseForm = (props: NewCourseFormProps) => {
             Name: newName,
             Status: newStatus,
         };
-        console.log(newCourseStdId);
-        if ((newCourseStdId !== "") && (newName !== "") && (newStatus !== "")){
-            fetch("http://localhost:3000/example", {
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify(newCourse),
-        })
-        .then(res => res.json())
-        .then(savedNewCourse => {
-            if (savedNewCourse.stdId !== undefined) {
-                if (props.onNewCourseCreated !== undefined) {
-                    props.onNewCourseCreated(savedNewCourse);
+    if ((newCourseStdId !== "") && (newName !== "") && (newStatus !== "")){
+        CoursesService.createCourse(newCourse)
+            .then(savedNewCourse => {
+                if (savedNewCourse !== null) {
+                    if (props.onNewCourseCreated !== undefined) {
+                        props.onNewCourseCreated(savedNewCourse);
+                    }
                 }
-            }
-            else {
-                alert("Save Error");
-            }
-        });
-        }
-        else{
-            alert("Invalid form");
-        }
-    };
-
+                else {
+                    alert("Save error!!");
+                }
+            });
+    }
+    else {
+        alert("Some field are empty");
+    }
+}
     return (
         <div>
             <h2>Add courses</h2>
@@ -60,3 +52,9 @@ const NewCourseForm = (props: NewCourseFormProps) => {
 };
 
 export default NewCourseForm;
+
+
+
+
+
+
