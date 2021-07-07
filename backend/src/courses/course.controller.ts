@@ -15,7 +15,7 @@ export class Coursescontroller {
   @Post()
   async create(@Body() createCourseDto: CreateCourseDto){
     // Check if data form is invalid
-    if ((createCourseDto.Name != undefined) && (createCourseDto.Status != undefined) && (createCourseDto.stdId != undefined)){
+    if ((createCourseDto.Name !== undefined) && (createCourseDto.Status !== undefined) && (createCourseDto.stdId !== undefined)){
       const newCourse = this.courseService.create(createCourseDto);
       return newCourse;
     }

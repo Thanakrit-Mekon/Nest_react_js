@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Course } from '../interface';
 
 type NewCourseFormProps = {
- 
+    onNewCourseCreated?: (newCourse: Course) => void,
 };
 
 const NewCourseForm = (props: NewCourseFormProps) => {
@@ -16,7 +17,35 @@ const NewCourseForm = (props: NewCourseFormProps) => {
         setNewName(e.target.value);
     };
     const handleSave = () => {
-        alert(`Add ${newCourseStdId} - - ${newName}`)
+        const newCourse = {
+            stdId: newCourseStdId,
+            Name: newName,
+            Status: newStatus,
+        };
+        console.log(newCourseStdId);
+        if ((newCourseStdId !== "") && (newName !== "") && (newStatus !== "")){
+            fetch("http://localhost:3000/example", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify(newCourse),
+        })
+        .then(res => res.json())
+        .then(savedNewCourse => {
+            if (savedNewCourse.stdId !== undefined) {
+                if (props.onNewCourseCreated !== undefined) {
+                    props.onNewCourseCreated(savedNewCourse);
+                }
+            }
+            else {
+                alert("Save Error");
+            }
+        });
+        }
+        else{
+            alert("Invalid form");
+        }
     };
 
     return (
