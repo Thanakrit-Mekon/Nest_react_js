@@ -12,3 +12,5 @@ import Review from "./review.entity";
 })
 
 export class CourseModule {}
+
+

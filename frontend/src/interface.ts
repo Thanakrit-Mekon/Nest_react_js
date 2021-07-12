@@ -4,3 +4,10 @@ export interface Course {
     Status: string;
 }
 
+
+export interface Review {
+    Id?: string;
+    courseId: string;
+    review: string;
+    rating: number
+}
