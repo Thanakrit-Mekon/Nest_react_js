@@ -6,6 +6,10 @@ import { CoursesService } from './courses/courses.service';
 import Course from './courses/courses.entitiy';
 import { Coursescontroller } from './courses/course.controller';
 import { CourseModule } from './courses/courses.module';
+import { MailModule } from './mail/mail.module';
+import { MailService } from './mail/mail.service';
+import { MailController } from './mail/mail.controller';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -22,9 +26,14 @@ import { CourseModule } from './courses/courses.module';
 
     // for Feature for submodule
     TypeOrmModule.forFeature([Course]),
+
+    MailModule,
+    ConfigModule.forRoot({
+      isGlobal: true, 
+    }),
   ],
-  controllers: [AppController, Coursescontroller],
-  providers: [AppService, CoursesService], // Injectable
+  controllers: [AppController, Coursescontroller, MailController],
+  providers: [AppService, CoursesService, MailService], // Injectable
 })
 export class AppModule {}
 
