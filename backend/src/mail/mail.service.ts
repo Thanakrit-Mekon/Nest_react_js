@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 
+require("dotenv").config()
+
 @Injectable()
 export class MailService {
   constructor(private readonly mailerService: MailerService) { }
@@ -12,8 +14,8 @@ export class MailService {
   public sendTestMail(): void {
     this.mailerService.sendMail(
       {
-        to: 'thanakrit.mekon@gmail.com', // List of receivers email address
-        from: '"No Reply" <ku.postit.notify@gmail.com>', // Senders email address
+        to: process.env.MAIL_DIST_TEST, // List of receivers email address
+        from: `"No Reply" <${process.env.MAIL_FROM}>`, // Senders email address
         subject: 'Hej världen', // Subject line
         text: '', // plaintext body
         html: '<b>hej det här är ett utskickstest från Nestjs</b> <a href="google.com">bekräftelselänk</a>', // HTML body content

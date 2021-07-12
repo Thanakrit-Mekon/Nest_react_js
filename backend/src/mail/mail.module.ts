@@ -3,7 +3,6 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { join } from 'path';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 
 require("dotenv").config()
 
@@ -24,8 +23,8 @@ require("dotenv").config()
         from: `"No Reply" <${process.env.MAIL_FROM}>`,
       },
       template: {
-        dir: join(__dirname, 'templates'),
-        adapter: new HandlebarsAdapter(), // or new PugAdapter() or new EjsAdapter()
+        dir: join(__dirname, '/templates/'),
+        adapter: new HandlebarsAdapter(), 
         options: {
           strict: true,
         },
@@ -33,7 +32,7 @@ require("dotenv").config()
     }),
   ],
   providers: [MailService],
-  exports: [MailService], // 👈 export for DI
+  exports: [MailService], 
 })
 export class MailModule {}
 
