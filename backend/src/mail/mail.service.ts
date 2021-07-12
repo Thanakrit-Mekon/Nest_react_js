@@ -14,7 +14,7 @@ export class MailService {
   public sendTestMail(): void {
     this.mailerService.sendMail(
       {
-        to: process.env.MAIL_DIST_TEST, // List of receivers email address
+        to: [process.env.MAIL_DIST_TEST1 ,process.env.MAIL_DIST_TEST2], // List of receivers email address
         from: `"No Reply" <${process.env.MAIL_FROM}>`, // Senders email address
         subject: 'Hej världen', // Subject line
         text: '', // plaintext body
