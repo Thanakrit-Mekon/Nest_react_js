@@ -3,13 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoursesService } from './courses/courses.service';
-import Course from './courses/courses.entitiy';
 import { Coursescontroller } from './courses/course.controller';
 import { CourseModule } from './courses/courses.module';
 import { MailModule } from './mail/mail.module';
 import { MailService } from './mail/mail.service';
 import { MailController } from './mail/mail.controller';
 import { ConfigModule } from '@nestjs/config';
+import Course from './courses/courses.entity';
+import Review from './courses/review.entity';
 
 @Module({
   imports: [
@@ -18,14 +19,14 @@ import { ConfigModule } from '@nestjs/config';
       type: "mongodb",
       host: "localhost",
       database: "test1",
-      entities: [Course],
+      entities: [Course, Review],
       synchronize: true,
     }),
 
     CourseModule,
 
     // for Feature for submodule
-    TypeOrmModule.forFeature([Course]),
+    TypeOrmModule.forFeature([Course, Review]),
 
     MailModule,
     ConfigModule.forRoot({

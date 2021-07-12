@@ -2,13 +2,13 @@ import { Course } from "../interface";
 import { baseUrl } from '../config/const';
 
 async function fetchCourses(): Promise<Course[]> {
-    const res = await fetch(`${baseUrl}/example`)
+    const res = await fetch(`${baseUrl}/courses`)
     const courses = await res.json();
     return courses;
 }
 
 async function createCourse(newCourse: Course): Promise<Course|null> {
-    const res = await fetch(`${baseUrl}/example`, {
+    const res = await fetch(`${baseUrl}/courses`, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"

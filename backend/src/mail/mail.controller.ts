@@ -10,3 +10,8 @@ export class MailController {
     return this.mailService.sendTestMail();
   }
 }
+
+
+
+
+
