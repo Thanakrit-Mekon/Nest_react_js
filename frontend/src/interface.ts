@@ -7,7 +7,7 @@ export interface Course {
 
 export interface Review {
     Id?: string;
-    courseId: string;
+    courseId?: string;
     review: string;
     rating: number
 }

@@ -12,27 +12,66 @@ const CourseItem = (props: CourseItemProps) => {
     const [reviewVisible, setReviewVisible] = useState<Boolean>(false);
     const [review, setReview] = useState<Review[]>([]);
 
-const handleReviewVisibleToggle = () => {
-    if (!reviewVisible) {
+    const [newReviewComments, setnewReviewComments] = useState<string>("");
+    const [newReviewRating, setReviewRating] = useState<number>(1);
+
+    const fetchReview = () => {
         if (course.Id) {
             CoursesService.fetchReview(course.Id)
-                .then(review => {
-                    setReview(review);
-                    console.log(review);
-                    setReviewVisible(true);
-                });
+                .then(reviews => {
+                    setReview(reviews);
+            });
+        };
+    }
+    
+
+    const handleReviewVisibleToggle = () => {
+        if (!reviewVisible) {
+            if (course.Id) {
+                fetchReview();
+                CoursesService.fetchReview(course.Id)
+                    .then(review => {
+                        setReview(review);
+                        console.log(review);
+                        setReviewVisible(true);
+                    });
+            }
+            else {
+                setReviewVisible(true);
+            }
+        
         }
         else {
-            setReviewVisible(true);
+            setReviewVisible(false);
         }
-        
+        setReviewVisible(!reviewVisible);
     }
-    else {
-        setReviewVisible(false);
-    }
-    setReviewVisible(!reviewVisible);
 
-}
+    const clearNewReviewForm = () => {
+        setnewReviewComments("");
+        setReviewRating(1);
+    }
+
+    const handleNewReviewSavedClick = () => {
+        alert(`Review added :)`);
+        if (course.Id){
+            const newReview: Review = {
+                review: newReviewComments,
+                rating: newReviewRating,            
+            };
+            CoursesService.createReview(newReview, course.Id)
+                .then(savedNewReview => {
+                    if (savedNewReview) {
+                        fetchReview();
+                        clearNewReviewForm();
+                    }
+                }) 
+        
+        }
+    }
+    
+
+    const newReviewScoreOptions = [1,2,3,4,5];
 
     return  (
         <li className="Course">
@@ -42,8 +81,8 @@ const handleReviewVisibleToggle = () => {
                 {reviewVisible ? "hide reviews" : "show reviews"}
             </button>
             {reviewVisible && 
-            (
-            <ul>
+            (<div>
+                <ul>
                 {review.map(reviews => (
                     <li>{reviews.review} ({reviews.rating})</li>
                 ))}
@@ -53,13 +92,33 @@ const handleReviewVisibleToggle = () => {
                     )
                 }
             </ul>
-            )
+            <b>new review:</b><br/>
+            Comments: &nbsp;
+            <input
+                onChange={(e) => {setnewReviewComments(e.target.value); }}
+                value={newReviewComments}
+            />
+            &nbsp; Rating: &nbsp;
+            <select 
+                onChange={(e) => {setReviewRating(parseInt(e.target.value)); }}
+                value = {newReviewRating}>
+                {newReviewScoreOptions.map(item => (
+                    <option value={item}>{item}</option>
+                ))}
+            </select>
+            &nbsp;
+            <button onClick={handleNewReviewSavedClick}>
+                Save
+            </button>
+            </div>)
             }
         </li>
     );
-};
-
+}
+        
 export default CourseItem;
+
+
 
 
 
