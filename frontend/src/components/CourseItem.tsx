@@ -36,37 +36,33 @@ const CourseItem = (props: CourseItemProps) => {
                         setReviewVisible(true);
                     });
             }
-            else {
-                setReviewVisible(true);
-            }
-        
         }
         else {
             setReviewVisible(false);
         }
-        setReviewVisible(!reviewVisible);
     }
-
+        
+    
     const clearNewReviewForm = () => {
         setnewReviewComments("");
         setReviewRating(1);
     }
 
     const handleNewReviewSavedClick = () => {
-        alert(`Review added :)`);
+        
         if (course.Id){
             const newReview: Review = {
                 review: newReviewComments,
-                rating: newReviewRating,            
+                rating: newReviewRating,     
             };
             CoursesService.createReview(newReview, course.Id)
-                .then(savedNewReview => {
+                .then(savedNewReview =>{
                     if (savedNewReview) {
+                        alert(`review added :)`);
                         fetchReview();
                         clearNewReviewForm();
                     }
-                }) 
-        
+                })
         }
     }
     
@@ -100,7 +96,7 @@ const CourseItem = (props: CourseItemProps) => {
             />
             &nbsp; Rating: &nbsp;
             <select 
-                onChange={(e) => {setReviewRating(parseInt(e.target.value)); }}
+                onChange={(e) => {setReviewRating(parseInt(e.target.value, 10)); }}
                 value = {newReviewRating}>
                 {newReviewScoreOptions.map(item => (
                     <option value={item}>{item}</option>
@@ -117,6 +113,8 @@ const CourseItem = (props: CourseItemProps) => {
 }
         
 export default CourseItem;
+
+
 
 
 

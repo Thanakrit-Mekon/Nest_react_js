@@ -31,7 +31,7 @@ async function fetchReview(courseId: string): Promise<Review[]> {
 }
 
 async function createReview(newReview: Review, courseId: string): Promise<Review|null> {
-    const res = await fetch(`${baseUrl}/courses/${courseId}`, {
+    const res = await fetch(`${baseUrl}/courses/${courseId}/reviews`, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -46,13 +46,15 @@ async function createReview(newReview: Review, courseId: string): Promise<Review
         return null;
     }
 }
-
 export default {
-    fetchCourses,
-    createCourse,
-    fetchReview,
-    createReview,
+    fetchCourses, createCourse,
+    fetchReview, createReview,
 };
+
+
+
+
+
 
 
 
