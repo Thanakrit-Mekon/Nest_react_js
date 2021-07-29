@@ -2,15 +2,16 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CoursesService } from './courses/courses.service';
-import { Coursescontroller } from './courses/course.controller';
 import { CourseModule } from './courses/courses.module';
 import { MailModule } from './mail/mail.module';
-import { MailService } from './mail/mail.service';
-import { MailController } from './mail/mail.controller';
 import { ConfigModule } from '@nestjs/config';
 import Course from './courses/courses.entity';
 import Review from './courses/review.entity';
+import { MongooseModule } from '@nestjs/mongoose';
+import { StudentQueryService } from './studentQuery/studentQuery.service';
+import { StudentQueryModule } from './studentQuery/studentQuery.module';
+
+require("dotenv").config()
 
 @Module({
   imports: [
@@ -23,6 +24,10 @@ import Review from './courses/review.entity';
       synchronize: true,
     }),
 
+    MongooseModule.forRoot(process.env.TEST_DB_URL),
+
+    StudentQueryModule,
+
     CourseModule,
 
     // for Feature for submodule
@@ -33,8 +38,8 @@ import Review from './courses/review.entity';
       isGlobal: true, 
     }),
   ],
-  controllers: [AppController, Coursescontroller, MailController],
-  providers: [AppService, CoursesService, MailService], // Injectable
+  controllers: [AppController],
+  providers: [AppService], // Injectable
 })
 export class AppModule {}
 
