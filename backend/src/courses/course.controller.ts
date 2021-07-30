@@ -29,7 +29,9 @@ export class Coursescontroller {
   @Get("allReviews")
   // localhost:3000/courses/allReviews
   async findAllReviews(): Promise<Review[]> {
-    return this.courseService.findAllReviews();
+    const allStudent = this.courseService.findAllReviews();
+    console.log(allStudent);
+    return allStudent
   }
 
   @Get(":courseId/reviews")

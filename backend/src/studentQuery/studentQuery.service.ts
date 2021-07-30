@@ -62,4 +62,19 @@ export class StudentQueryService {
         const result = await addTestStudent.save();
         return result.id as string;
     }
+
+    async mailQuery(faculty_code, department_code, year) {
+        const qualifiedStudent = await this.studentQueryModel.find({
+            "faculty_code" : faculty_code, 
+            "department_code": department_code,
+            "year": year
+        }).lean().exec();
+        const mail = [];
+        for (let i = 0; i < qualifiedStudent.length; i++) {
+            console.log(qualifiedStudent[i].gmail)
+            mail[i] = qualifiedStudent[i].gmail
+        }
+        
+        return mail;
+    }
 }

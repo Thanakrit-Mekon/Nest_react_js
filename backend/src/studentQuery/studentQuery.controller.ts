@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { StudentQueryService } from "./studentQuery.service";
 
 
@@ -9,6 +9,18 @@ export class StudentQueryController {
     @Get("all")
     async findAllStudent(): Promise<any[]> {
         return await this.studentQueryService.findAllStudent();
+    }
+
+    @Get("mail/:faculty_code/:department_code/:year")
+    async mailQuery(
+        @Param("faculty_code") faculty_code: string,
+        @Param("department_code") department_code: string,
+        @Param("year") year: string,
+        ): Promise<any[]> {
+        console.log(faculty_code)
+        console.log(department_code)
+        console.log(year)
+        return await this.studentQueryService.mailQuery(faculty_code, department_code, year);
     }
 
     @Post("addtest")
@@ -40,4 +52,6 @@ export class StudentQueryController {
         )
         return { id: generateId };
     }
+
+
 }
