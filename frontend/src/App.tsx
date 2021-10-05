@@ -31,6 +31,7 @@ const App = () => {
     return (
         
         <div className="App">
+            <h1>Test git yay!</h1>
             <ul>
                 {courses.map(item => (
                     <CourseItem key={item.Id} course={item} />
